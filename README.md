@@ -1,50 +1,96 @@
-# Welcome to your Expo app 👋
+H2O Tracker 💦
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Bem-vindo ao H2O Tracker, um aplicativo móvel em desenvolvimento projetado para ajudar você a monitorar seu consumo diário de água e manter-se hidratado! 🌱 Com uma interface intuitiva e funcionalidades práticas, o H2O Tracker é ideal para quem deseja criar ou manter o hábito de beber água regularmente, promovendo um estilo de vida mais saudável. 💧
 
-## Get started
 
-1. Install dependencies
 
-   ```bash
-   npm install
-   ```
+Nota: Este projeto está em construção e, no momento, possui apenas o frontend implementado. Novas funcionalidades e melhorias estão sendo desenvolvidas! 🚧
 
-2. Start the app
+📝 Descrição
 
-   ```bash
-   npx expo start
-   ```
+O H2O Tracker é um aplicativo móvel que facilita o acompanhamento do consumo de água, oferecendo ferramentas para definir metas personalizadas e registrar a ingestão diária de forma prática. Nosso objetivo é motivar usuários, especialmente aqueles que consomem menos água do que o recomendado, a adotar hábitos de hidratação consistentes por meio de uma experiência simples e envolvente.
 
-In the output, you'll find options to open the app in a
+✨ Funcionalidades Planejadas
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
 
-When you're ready, run:
 
-```bash
-npm run reset-project
-```
+Monitoramento diário 📊: Registre facilmente a quantidade de água consumida ao longo do dia.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
-## Learn more
 
-To learn more about developing your project with Expo, look at the following resources:
+Metas personalizáveis 🎯: Defina metas de consumo (ex.: 2L, 3L) com base nas suas necessidades pessoais.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-## Join the community
 
-Join our community of developers creating universal apps.
+Notificações 🔔: Receba lembretes regulares para manter a hidratação em dia.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+
+Seleções ajustáveis 🥤: Escolha diferentes recipientes (copos, garrafas) e configure seus volumes para facilitar o registro.
+
+
+
+Relatórios 📈: Visualize seu progresso diário e semanal por meio de gráficos claros e motivadores.
+
+
+
+Interface amigável 😊: Design intuitivo e acessível para usuários de todas as idades.
+
+🎉 Objetivo
+
+O H2O Tracker foi criado para apoiar pessoas que enfrentam dificuldades em manter um consumo adequado de água. Com ferramentas práticas e motivadoras, o aplicativo busca aumentar a disciplina e o foco na hidratação diária, contribuindo para o bem-estar e a saúde dos usuários. 💪
+
+🛠️ Tecnologias
+
+
+
+
+
+Frontend: React Native ⚛️
+
+
+
+Backend: Em planejamento (a ser definido).
+
+
+
+Ferramentas adicionais: Em avaliação para futuras implementações (ex.: banco de dados, notificações push).
+
+🚧 Status do Projeto
+
+O H2O Tracker está em fase inicial de desenvolvimento. Atualmente, o foco está na construção do frontend utilizando React Native, com a implementação de telas iniciais e protótipos de funcionalidades. As próximas etapas incluem:
+
+
+
+
+
+Finalizar a interface do usuário (UI/UX).
+
+
+
+Implementar lógica básica para registro de consumo e metas.
+
+
+
+Planejar e desenvolver o backend para armazenamento de dados e notificações.
+
+
+
+Testes e refinamento da experiência do usuário.
+
+📬 Contato
+
+Tem dúvidas, sugestões ou quer colaborar? Entre em contato conosco:
+
+
+
+
+
+E-mail: lucasgabrielsilvaa20@gmail.com
+
+
+🌟 Agradecimentos
+
+Agradecemos a todos que apoiam o H2O Tracker! Juntos, vamos ajudar mais pessoas a se manterem hidratadas e saudáveis. 💧

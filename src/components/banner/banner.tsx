@@ -18,7 +18,7 @@ export function Banner() {
 
         <Pressable
           className="w-full h-36 md:h-60  rounded-2xl"
-          key="1"
+          key="2"
           onPress={() => console.log("Cliclou no Banner2")}
         >
           <Image
@@ -29,7 +29,7 @@ export function Banner() {
 
         <Pressable
           className="w-full h-36 md:h-60 rounded-2xl"
-          key="1"
+          key="3"
           onPress={() => console.log("Cliclou no Banner3")}
         >
           <Image

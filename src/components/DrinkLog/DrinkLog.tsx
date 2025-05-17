@@ -1,14 +1,14 @@
 import { FlatList, View } from "react-native";
-import { RegistrarConsumoHorizontal } from "./registrarConsumo-horizontal/registrarConsumo-horizintal";
+import { DrinkLogItem } from "./DrinkLogHorizontal/DrinkLogItem";
 
 const data = [
   { id: "1", title: "250mL", icon: require('../../assets/iconeBebida1.png') },
   { id: "2", title: "500mL", icon: require('../../assets/iconeBebida2.png') },
   { id: "3", title: "1L", icon: require('../../assets/iconeBebida3.png') },
-  { id: "4", title: "Customizar", icon: require('../../assets/IconeCustomizar1.png') },
+  { id: "4", title: "Customize", icon: require('../../assets/IconeCustomizar1.png') },
 ];
 
-export function RegistrarConsumo() {
+export function DrinkLog() {
   return (
     <View className="p-4">
       <FlatList
@@ -16,7 +16,7 @@ export function RegistrarConsumo() {
         keyExtractor={(item) => item.id}
         horizontal
         renderItem={({ item }) => (
-          <RegistrarConsumoHorizontal title={item.title} icon={item.icon} />
+          <DrinkLogItem title={item.title} icon={item.icon} />
         )}
         ItemSeparatorComponent={() => <View className="p-12" />}
       />

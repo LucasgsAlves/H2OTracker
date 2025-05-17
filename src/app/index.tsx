@@ -1,8 +1,9 @@
 import Constants from "expo-constants";
-import { ScrollView, View, Text, TouchableOpacity } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Banner } from "../components/banner/banner";
+import { DrinkLog } from "../components/DrinkLog/DrinkLog";
 import { Header } from "../components/header/header";
-import { RegistrarConsumo } from "../components/registrarConsumo/registrarConsumo";
+import { WaterProgressArc } from "../components/WaterProgressArc/WaterProgressArc";
 
 const statusBarHeight = Constants.statusBarHeight;
 
@@ -19,13 +20,19 @@ export default function Index() {
       </View>
 
       <View className="w-full px-4 py-2 flex-row justify-between items-center">
-        <Text className="text-2xl font-semibold text-gray-800">Registrar Consumo</Text>
-        <TouchableOpacity onPress={() => console.log("Clicou em veja mais")}>
+        <Text className="text-2xl font-semibold text-gray-800">
+          Consumo de Água
+        </Text>
+        <TouchableOpacity onPress={() => console.log("Cliclou em 'Veja Mais'")}>
           <Text className="text-blue-500 font-medium">Veja Mais</Text>
         </TouchableOpacity>
       </View>
 
-      <RegistrarConsumo/>
+      <DrinkLog />
+
+      <View className="flex-1 items-center justify-center">
+        <WaterProgressArc percentage={100} />
+      </View>
     </ScrollView>
   );
 }

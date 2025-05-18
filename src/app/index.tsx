@@ -5,7 +5,8 @@ import { Banner } from "../components/Banner/banner";
 import { Header } from "../components/Header/header";
 import { DrinkLog } from "../components/DrinkLog/DrinkLog";
 import { WaterProgressArc } from "../components/WaterProgressArc/WaterProgressArc";
-import { MetaAnimation } from "../components/MetaAnimation/MetaAnimation"
+import { MetaAnimation } from "../components/MetaAnimation/MetaAnimation";
+import { GoalSelector } from "../components/GoalSelector/GoalSelector";
 
 const statusBarHeight = Constants.statusBarHeight;
 
@@ -32,14 +33,15 @@ export default function Index() {
       <View className="w-full px-4" style={{ marginTop: statusBarHeight + 8 }}>
         <Header />
         <Banner />
+        <GoalSelector currentGoal={goal} onChangeGoal={setGoal}/>
       </View>
 
       <View className="w-full px-4 py-2 flex-row justify-between items-center">
         <Text className="text-2xl font-semibold text-gray-800">
-          Log Water Intake
+          Registro de Consumo
         </Text>
         <TouchableOpacity onPress={() => console.log("See more clicked")}>
-          <Text className="text-blue-500 font-medium">See More</Text>
+          <Text className="text-blue-500 font-medium">Veja Mais</Text>
         </TouchableOpacity>
       </View>
 

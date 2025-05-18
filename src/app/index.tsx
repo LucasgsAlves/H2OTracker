@@ -1,13 +1,23 @@
 import Constants from "expo-constants";
+import { useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Banner } from "../components/banner/banner";
-import { DrinkLog } from "../components/DrinkLog/DrinkLog";
 import { Header } from "../components/header/header";
+import { DrinkLog } from "../components/DrinkLog/DrinkLog";
 import { WaterProgressArc } from "../components/WaterProgressArc/WaterProgressArc";
 
 const statusBarHeight = Constants.statusBarHeight;
 
 export default function Index() {
+  const [goal, setDailyGoal] = useState(2000);
+  const [consumed, setConsumed] = useState(0);
+
+  function handleDrink(amount: number){
+    setConsumed((prev) => + amount)
+  }
+
+  const percentage = Math.min((consumed / goal) * 100, 100);
+
   return (
     <ScrollView
       style={{ flex: 1 }}
@@ -28,10 +38,10 @@ export default function Index() {
         </TouchableOpacity>
       </View>
 
-      <DrinkLog />
+      <DrinkLog onDrink={handleDrink}/>
 
       <View className="flex-1 items-center justify-center">
-        <WaterProgressArc percentage={100} />
+        <WaterProgressArc percentage={percentage} />
       </View>
     </ScrollView>
   );

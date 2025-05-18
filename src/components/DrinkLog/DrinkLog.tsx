@@ -28,10 +28,15 @@ export function DrinkLog({ onDrink }: DrinkLogProps) {
             title={item.title}
             icon={item.icon}
             onPress={() => {
+              console.log("Título:", item.title); // <- Adicione isso
               if (item.title !== "Customize") {
-                const amount = item.title.includes("L")
-                  ? parseInt(item.title.replace("L", "")) * 1000
-                  : parseInt(item.title.replace("mL", ""));
+                let amount = 0;
+                if (item.title.includes("mL")) {
+                  amount = parseFloat(item.title.replace("mL", ""));
+                } else if (item.title.includes("L")) {
+                  amount = parseFloat(item.title.replace("L", "")) * 1000;
+                }
+                console.log("Quantidade:", amount); // <- Adicione isso
                 onDrink(amount);
               }
             }}

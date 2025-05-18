@@ -1,24 +1,29 @@
-import Constants from "expo-constants";
-import { useState } from "react";
+import React, { useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { Banner } from "../components/banner/banner";
-import { Header } from "../components/header/header";
+import Constants from "expo-constants";
+import { Banner } from "../components/Banner/banner";
+import { Header } from "../components/Header/header";
 import { DrinkLog } from "../components/DrinkLog/DrinkLog";
 import { WaterProgressArc } from "../components/WaterProgressArc/WaterProgressArc";
+import { MetaAnimation } from "../components/MetaAnimation/MetaAnimation"
 
 const statusBarHeight = Constants.statusBarHeight;
 
 export default function Index() {
-  const [goal, setDailyGoal] = useState(2000);
-  const [consumed, setConsumed] = useState(0);
+  const [goal, setGoal] = useState(2000);
+  const [currentAmount, setCurrentAmount] = useState(0);
 
-  function handleDrink(amount: number){
-    setConsumed((prev) => + amount)
-  }
+  const handleDrink = (amount: number) => {
+    setCurrentAmount(prev => {
+      const updated = prev + amount;
+      return updated > goal ? goal : updated;
+    });
+  };
 
-  const percentage = Math.min((consumed / goal) * 100, 100);
+  const percentage = (currentAmount / goal) * 100;
 
   return (
+    
     <ScrollView
       style={{ flex: 1 }}
       className="bg-slate-200"
@@ -31,17 +36,20 @@ export default function Index() {
 
       <View className="w-full px-4 py-2 flex-row justify-between items-center">
         <Text className="text-2xl font-semibold text-gray-800">
-          Consumo de Água
+          Log Water Intake
         </Text>
-        <TouchableOpacity onPress={() => console.log("Cliclou em 'Veja Mais'")}>
-          <Text className="text-blue-500 font-medium">Veja Mais</Text>
+        <TouchableOpacity onPress={() => console.log("See more clicked")}>
+          <Text className="text-blue-500 font-medium">See More</Text>
         </TouchableOpacity>
       </View>
 
-      <DrinkLog onDrink={handleDrink}/>
+      <DrinkLog onDrink={handleDrink} />
 
       <View className="flex-1 items-center justify-center">
         <WaterProgressArc percentage={percentage} />
+        <Text className="text-base mt-2 font-medium text-gray-700">
+          {currentAmount} mL / {goal} mL
+        </Text>
       </View>
     </ScrollView>
   );

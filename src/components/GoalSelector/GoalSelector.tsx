@@ -1,17 +1,77 @@
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { MaterialIcons } from "@expo/vector-icons";
+import { useEffect, useRef } from "react";
+import {
+  Animated,
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 type GoalSelectorProps = {
   currentGoal: number;
   onChangeGoal: (goal: number) => void;
 };
 
-const goalOptions = [1000, 1500, 2000, 3000, 4000, 5000];
+const goalOptions = [1000, 1500, 2000, 2500, 3000, 3500, 4000, 5000];
 
 export function GoalSelector({ currentGoal, onChangeGoal }: GoalSelectorProps) {
+  const scaleAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.spring(scaleAnim, {
+      toValue: 1,
+      tension: 50,
+      friction: 7,
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
+  const calculateRecommendedWater = (weight: number) => {
+    return Math.round((weight * 35) / 100) * 100;
+  };
+
+  const exampleWeight = 70;
+  const recommendedAmount = calculateRecommendedWater(exampleWeight);
+
   return (
-    <View style={{ marginTop: 16 }}>
-      <Text style={styles.label}>Escolha sua meta diária:</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+    <Animated.View
+      style={[styles.container, { transform: [{ scale: scaleAnim }] }]}
+    >
+      <View style={styles.headerContainer}>
+        <Text style={styles.label}>Escolha sua meta diária:</Text>
+        <TouchableOpacity
+          style={styles.infoButton}
+          onPress={() => {
+            alert(
+              "A quantidade de água recomendada varia de acordo com seu peso, nível de atividade física e clima. Uma regra geral é consumir 35ml por kg de peso corporal."
+            );
+          }}
+        >
+          <MaterialIcons name="info-outline" size={18} color="#64748B" />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.recommendationContainer}>
+        <Text style={styles.recommendationText}>
+          Recomendado para seu perfil:{" "}
+          <Text style={styles.recommendedValue}>{recommendedAmount}mL</Text>
+        </Text>
+        <TouchableOpacity
+          style={styles.useRecommendedButton}
+          onPress={() => onChangeGoal(recommendedAmount)}
+        >
+          <Text style={styles.useRecommendedText}>Usar</Text>
+        </TouchableOpacity>
+      </View>
+
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent}
+      >
         <View style={styles.buttonContainer}>
           {goalOptions.map((goal) => {
             const isSelected = currentGoal === goal;
@@ -24,51 +84,157 @@ export function GoalSelector({ currentGoal, onChangeGoal }: GoalSelectorProps) {
                   isSelected ? styles.selectedButton : styles.unselectedButton,
                 ]}
               >
-                <Text style={isSelected ? styles.selectedText : styles.unselectedText}>
-                  {goal} mL
+                <Text
+                  style={
+                    isSelected ? styles.selectedText : styles.unselectedText
+                  }
+                >
+                  {goal >= 1000 ? `${goal / 1000}L` : `${goal}mL`}
                 </Text>
               </TouchableOpacity>
             );
           })}
+
+          <TouchableOpacity
+            style={[styles.button, styles.customButton]}
+            onPress={() => {
+              // Aqui poderia abrir um modal para entrada personalizada
+              const customValue = prompt(
+                "Digite sua meta personalizada em mL:"
+              );
+              if (customValue) {
+                const value = parseInt(customValue);
+                if (!isNaN(value) && value > 0) {
+                  onChangeGoal(value);
+                }
+              }
+            }}
+          >
+            <Text style={styles.customButtonText}>
+              <MaterialIcons name="add" size={16} /> Personalizar
+            </Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
-    </View>
+
+      <View style={styles.tipContainer}>
+        <MaterialIcons name="lightbulb-outline" size={16} color="#3572EF" />
+        <Text style={styles.tipText}>
+          Dica: Sua meta ideal pode variar conforme seu peso, atividade física e
+          clima.
+        </Text>
+      </View>
+    </Animated.View>
   );
 }
 
+const { width } = Dimensions.get("window");
+
 const styles = StyleSheet.create({
-  label: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#000000',
+  container: {
+    marginTop: 16,
+    marginBottom: 16,
+  },
+  headerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginBottom: 8,
   },
+  label: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#334155",
+  },
+  infoButton: {
+    padding: 4,
+  },
+  recommendationContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#F0F9FF",
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 16,
+    borderLeftWidth: 3,
+    borderLeftColor: "#3572EF",
+  },
+  recommendationText: {
+    fontSize: 14,
+    color: "#64748B",
+    flex: 1,
+  },
+  recommendedValue: {
+    fontWeight: "600",
+    color: "#3572EF",
+  },
+  useRecommendedButton: {
+    backgroundColor: "#E0F2FE",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 4,
+  },
+  useRecommendedText: {
+    color: "#3572EF",
+    fontWeight: "500",
+    fontSize: 12,
+  },
+  scrollContent: {
+    paddingBottom: 8,
+  },
   buttonContainer: {
-    flexDirection: 'row',
-    gap: 12,
+    flexDirection: "row",
+    gap: 10,
   },
   button: {
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 20,
-    shadowColor: '#7AB2D3',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3,
-    elevation: 4, // Android shadow
+    minWidth: 80,
+    alignItems: "center",
   },
   selectedButton: {
-    backgroundColor: '#3572EF',
+    backgroundColor: "#3572EF",
+    shadowColor: "#3572EF",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 4, // Android shadow
   },
   unselectedButton: {
-    backgroundColor: '#B9E5E8',
+    backgroundColor: "#E2E8F0",
+  },
+  customButton: {
+    backgroundColor: "#F8FAFC",
+    borderWidth: 1,
+    borderColor: "#CBD5E1",
+    borderStyle: "dashed",
   },
   selectedText: {
-    color: '#FFFFFF',
-    fontWeight: '600',
+    color: "#FFFFFF",
+    fontWeight: "600",
   },
   unselectedText: {
-    color: '#000000',
-    fontWeight: '600',
+    color: "#334155",
+    fontWeight: "500",
+  },
+  customButtonText: {
+    color: "#64748B",
+    fontWeight: "500",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  tipContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 12,
+    paddingHorizontal: 4,
+  },
+  tipText: {
+    fontSize: 12,
+    color: "#64748B",
+    marginLeft: 6,
+    flex: 1,
   },
 });

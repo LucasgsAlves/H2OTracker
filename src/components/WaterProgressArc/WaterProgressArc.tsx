@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 
 type Props = {
@@ -10,7 +10,7 @@ function getColorByPercentage(percentage: number): string {
   if (percentage < 25) return "#EF4444";
   if (percentage < 50) return "#FB923C";
   if (percentage < 75) return "#FACC15";
-  return "#3B82F6";
+  return "#3572EF";                      
 }
 
 export function WaterProgressArc({ percentage }: Props) {
@@ -21,13 +21,13 @@ export function WaterProgressArc({ percentage }: Props) {
   const strokeColor = getColorByPercentage(percentage);
 
   return (
-    <View className="items-center justify-center mt-8">
+    <View style={styles.container}>
       <Svg width="200" height="100" viewBox="0 0 200 100">
         <Circle
           cx="100"
           cy="100"
           r={radius}
-          stroke="#3ABEF9"
+          stroke="#B9E5E8"
           strokeWidth={strokeWidth}
           strokeDasharray={circumference}
           strokeDashoffset={0}
@@ -48,7 +48,21 @@ export function WaterProgressArc({ percentage }: Props) {
           origin="100,100"
         />
       </Svg>
-      <Text className="text-xl font-bold mt-2">{percentage}%</Text>
+      <Text style={styles.percentage}>{percentage}%</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 32,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  percentage: {
+    marginTop: 8,
+    fontSize: 20,
+    fontWeight: "700",
+    color: "#1F509A",
+  },
+});

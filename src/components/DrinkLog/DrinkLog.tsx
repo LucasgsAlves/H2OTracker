@@ -1,15 +1,10 @@
-import { FlatList, View } from "react-native";
+import { FlatList, View, StyleSheet } from "react-native";
 import { DrinkLogItem } from "./DrinkLogHorizontal/DrinkLogItem";
 
 const drinkOptions = [
   { id: "1", title: "250mL", icon: require("../../assets/iconeBebida1.png") },
   { id: "2", title: "500mL", icon: require("../../assets/iconeBebida2.png") },
   { id: "3", title: "1L", icon: require("../../assets/iconeBebida3.png") },
-  {
-    id: "4",
-    title: "Personalizar",
-    icon: require("../../assets/IconeCustomizar1.png"),
-  },
 ];
 
 type DrinkLogProps = {
@@ -18,7 +13,7 @@ type DrinkLogProps = {
 
 export function DrinkLog({ onDrink }: DrinkLogProps) {
   return (
-    <View className="p-4">
+    <View style={styles.container}>
       <FlatList
         data={drinkOptions}
         keyExtractor={(item) => item.id}
@@ -28,7 +23,6 @@ export function DrinkLog({ onDrink }: DrinkLogProps) {
             title={item.title}
             icon={item.icon}
             onPress={() => {
-              console.log("Título:", item.title); // <- Adicione isso
               if (item.title !== "Customize") {
                 let amount = 0;
                 if (item.title.includes("mL")) {
@@ -36,15 +30,20 @@ export function DrinkLog({ onDrink }: DrinkLogProps) {
                 } else if (item.title.includes("L")) {
                   amount = parseFloat(item.title.replace("L", "")) * 1000;
                 }
-                console.log("Quantidade:", amount); // <- Adicione isso
                 onDrink(amount);
               }
             }}
           />
         )}
-        ItemSeparatorComponent={() => <View className="p-6" />}
+        ItemSeparatorComponent={() => <View style={{ width: 24 }} />}
         showsHorizontalScrollIndicator={false}
       />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 16,
+  },
+});

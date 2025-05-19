@@ -1,4 +1,4 @@
-import { View, Pressable, Text, Image, ImageSourcePropType } from 'react-native';
+import { View, Pressable, Text, Image, ImageSourcePropType, StyleSheet } from 'react-native';
 
 type DrinkLogItemProps = {
   title: string;
@@ -8,13 +8,40 @@ type DrinkLogItemProps = {
 
 export function DrinkLogItem({ title, icon, onPress }: DrinkLogItemProps) {
   return (
-    <Pressable className="flex items-center justify-center" onPress={onPress}>
-      <Image
-        source={icon}
-        className="w-16 h-16 rounded-full"
-        resizeMode="contain"
-      />
-      <Text className="text-lg text-center font-bold">{title}</Text>
+    <Pressable style={styles.container} onPress={onPress}>
+      <View style={styles.imageWrapper}>
+        <Image source={icon} style={styles.image} resizeMode="contain" />
+      </View>
+      <Text style={styles.label}>{title}</Text>
     </Pressable>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  imageWrapper: {
+    backgroundColor: '#B9E5E8',
+    padding: 10,
+    borderRadius: 50,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  image: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+  },
+  label: {
+    marginTop: 6,
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#000000',
+    textAlign: 'center',
+  },
+});

@@ -1,11 +1,14 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Animated,
+  Button,
   Dimensions,
+  Modal,
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -18,6 +21,9 @@ type GoalSelectorProps = {
 const goalOptions = [1000, 1500, 2000, 2500, 3000, 3500, 4000, 5000];
 
 export function GoalSelector({ currentGoal, onChangeGoal }: GoalSelectorProps) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [customValue, setCustomValue] = useState("");
+
   const scaleAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -97,18 +103,7 @@ export function GoalSelector({ currentGoal, onChangeGoal }: GoalSelectorProps) {
 
           <TouchableOpacity
             style={[styles.button, styles.customButton]}
-            onPress={() => {
-              // Aqui poderia abrir um modal para entrada personalizada
-              const customValue = prompt(
-                "Digite sua meta personalizada em mL:"
-              );
-              if (customValue) {
-                const value = parseInt(customValue);
-                if (!isNaN(value) && value > 0) {
-                  onChangeGoal(value);
-                }
-              }
-            }}
+            onPress={() => setModalVisible(true)}
           >
             <Text style={styles.customButtonText}>
               <MaterialIcons name="add" size={16} /> Personalizar
@@ -124,6 +119,42 @@ export function GoalSelector({ currentGoal, onChangeGoal }: GoalSelectorProps) {
           clima.
         </Text>
       </View>
+
+      <Modal
+        transparent={true}
+        visible={modalVisible}
+        animationType="slide"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={modalStyles.overlay}>
+          <View style={modalStyles.modalContainer}>
+            <Text style={modalStyles.modalTitle}>Meta Personalizada (mL)</Text>
+            <TextInput
+              style={modalStyles.input}
+              keyboardType="numeric"
+              placeholder="Ex: 3200"
+              value={customValue}
+              onChangeText={setCustomValue}
+            />
+            <View style={modalStyles.modalButtons}>
+              <Button title="Cancelar" onPress={() => setModalVisible(false)} />
+              <Button
+                title="Confirmar"
+                onPress={() => {
+                  const value = parseInt(customValue);
+                  if (!isNaN(value) && value > 0) {
+                    onChangeGoal(value);
+                    setModalVisible(false);
+                    setCustomValue("");
+                  } else {
+                    alert("Digite um valor válido em mL");
+                  }
+                }}
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
     </Animated.View>
   );
 }
@@ -200,7 +231,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
-    elevation: 4, // Android shadow
+    elevation: 4,
   },
   unselectedButton: {
     backgroundColor: "#E2E8F0",
@@ -236,5 +267,38 @@ const styles = StyleSheet.create({
     color: "#64748B",
     marginLeft: 6,
     flex: 1,
+  },
+});
+
+const modalStyles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContainer: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 12,
+    width: "80%",
+  },
+  modalTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    marginBottom: 12,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#CBD5E1",
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    marginBottom: 16,
+    fontSize: 14,
+  },
+  modalButtons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });

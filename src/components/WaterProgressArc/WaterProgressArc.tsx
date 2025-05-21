@@ -76,7 +76,7 @@ export function WaterProgressArc({ percentage, goal }: Props) {
         />
       </Svg>
       <View style={styles.textContainer}>
-        <Text style={styles.percentage}>{percentage}%</Text>
+        <Text style={styles.percentage}>{percentage.toFixed(2)}%</Text>
         <Text style={styles.goalText}>
           {((percentage / 100) * goal).toFixed(1)}L / {goal}L
         </Text>

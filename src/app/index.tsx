@@ -42,7 +42,7 @@ export default function Index() {
 
   useEffect(() => {
     const checkAndResetDailyIntake = async () => {
-      const today = new Date().toISOString().split("T")[0]; // yyyy-mm-dd
+      const today = new Date().toISOString().split("T")[0];
       const storedDate = await AsyncStorage.getItem("lastLoggedDate");
       const storedAmount = await AsyncStorage.getItem("currentAmount");
       const storedGoal = await AsyncStorage.getItem("waterGoal");
